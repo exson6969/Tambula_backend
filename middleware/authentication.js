@@ -3,12 +3,13 @@ const jwt = require('jsonwebtoken');
 // Middleware for authenticating JWT token
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
+  console.log(authHeader);
   const token = authHeader && authHeader.split(' ')[1];
 
-  if (!token) {
+  if (!authHeader) {
     res.status(401).json({ error: 'Unauthorized' });
   } else {
-    jwt.verify(token, 'your_secret_key', (err, user) => {
+    jwt.verify(authHeader, 'your_secret_key', (err, user) => {
       if (err) {
         console.error('Error verifying JWT token');
         res.status(403).json({ error: 'Forbidden' });
