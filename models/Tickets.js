@@ -1,6 +1,17 @@
 // Database connection
 const db = require('../config/dbConfig');
 
+// Get user by id
+exports.getById = (username, callback) => {
+  db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results[0].id);
+    }
+  });
+};
+
 // Create ticket
 exports.create = (userData,callback) => {
 
@@ -9,6 +20,26 @@ exports.create = (userData,callback) => {
       callback(err);
     } else {
       callback(null);
+    }
+  });
+};
+
+// Fetch ticket lists associated with the respective ID with pagination
+exports.fetchAll = (userId, page, limit, callback) => {
+  const offset = (page - 1) * limit;
+
+  db.query('SELECT * FROM tickets WHERE user_id = ? LIMIT ?, ?', [userId, offset, limit], (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      const tickets = results.map((row) => {
+        return {
+          id: row.id,
+          ticketId: row.ticket_id,
+          ticketData: JSON.parse(row.ticket_data),
+        };
+      });
+      callback(null, tickets);
     }
   });
 };

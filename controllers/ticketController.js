@@ -3,21 +3,29 @@ const Ticket = require('../models/Tickets');
 
 // Create ticket controller
 exports.createTicket = (req, res) => {
-  // Retrieve necessary data from the request body and user object
-  const userId  = 9;
-  const ticketId = generateTicketId();
-  const ticketData = generateTicketData(req.body.ticketCount);
-  
-  // Create a new ticket in the database
-  Ticket.create({ userId, ticketId, ticketData }, (err, createdTicket) => {
+  Ticket.getById(req.user.username, (err, id) => {
     if (err) {
-      console.error('Error creating ticket:', err);
+      console.error('Error:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-      res.json({ message: 'Ticket generated successfully' });
+      console.log(id);
+      const userId = id;
+      const ticketId = generateTicketId();
+      const ticketData = generateTicketData(req.body.ticketCount);
+
+      // Create a new ticket in the database
+      Ticket.create({ userId, ticketId, ticketData }, (err, createdTicket) => {
+        if (err) {
+          console.error('Error creating ticket:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+          res.json({ message: 'Ticket generated successfully' });
+        }
+      });
     }
   });
 };
+
 
 // Generate ticket data based on the rules
 function generateTicketData(ticketCount) {
@@ -94,14 +102,15 @@ function generateTicketData(ticketCount) {
 // Fetch tickets controller
 exports.fetchTickets = (req, res) => {
   const userId = req.user.id;
+  const page = req.user.page;
+  const limit = req.user.limit;
 
   // Fetch all tickets associated with the user ID from the database
-  Ticket.fetchAll(userId, (err, tickets) => {
+  Ticket.fetchAll(userId, page, limit, (err, tickets) => {
     if (err) {
-      console.error('Error fetching tickets');
-      res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Error fetching tickets:', err);
     } else {
-      res.json({ tickets });
+      console.log('Fetched tickets:', tickets);
     }
   });
 };
