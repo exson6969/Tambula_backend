@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 require("dotenv").config()
 
 const DB_HOST = process.env.DB_HOST
@@ -8,17 +8,18 @@ const DB_DATABASE = process.env.DB_DATABASE
 const DB_PORT = process.env.DB_PORT
 
 // MySQL database connection
-const db = mysql.createConnection({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_DATABASE,
-  port: DB_PORT
-});
+const db = mysql.createPool({
+  connectionLimit: 100,
+  host: DB_HOST,       //This is your localhost IP
+  user: DB_USER,         // "newuser" created in Step 1(e)
+  password: DB_PASSWORD,  // password for the new user
+  database: DB_DATABASE,      // Database name
+  port: DB_PORT             // port name, "3306" by default
+})
 
 
 // Connect to the MySQL database
-db.connect(err => {
+db.getConnection(err => {
   if (err) {
     console.error('Failed to connect to MySQL database');
     throw err;
