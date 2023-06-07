@@ -9,7 +9,6 @@ const DB_PORT = process.env.DB_PORT
 
 // MySQL database connection
 const db = mysql.createPool({
-  connectionLimit: 100,
   host: DB_HOST,       //This is your localhost IP
   user: DB_USER,         // "newuser" created in Step 1(e)
   password: DB_PASSWORD,  // password for the new user

@@ -4,22 +4,31 @@ const User = require('../models/user');
 
 // Register controller
 exports.register = (req, res) => {
-    console.log("Register Route")
   const { username, password } = req.body;
-
-  // Hash the password before storing it in the database
-  bcrypt.hash(password, 10, (err, hashedPassword) => {
+  // Check if the username already exists in the database
+  User.checkUsernameExists(username, (err, existingUser) => {
     if (err) {
-      console.error('Error hashing password');
+      console.error('Error finding user');
       res.status(500).json({ error: 'Internal Server Error' });
+    } else if (existingUser) {
+      // Username already exists
+      res.status(400).json({ error: 'Username already exists' });
     } else {
-      // Create a new user in the database
-      User.create(username, hashedPassword, (err) => {
+      // Hash the password before storing it in the database
+      bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) {
-          console.error('Error creating user');
+          console.error('Error hashing password');
           res.status(500).json({ error: 'Internal Server Error' });
         } else {
-          res.json({ message: 'User registered successfully' });
+          // Create a new user in the database
+          User.create(username, hashedPassword, (err) => {
+            if (err) {
+              console.error('Error creating user');
+              res.status(500).json({ error: 'Internal Server Error' });
+            } else {
+              res.json({ message: 'User registered successfully' });
+            }
+          });
         }
       });
     }

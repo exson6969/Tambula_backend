@@ -38,5 +38,6 @@ The Tambula Ticket API is a Node.js-based RESTful API that allows users to creat
 - "routes" folder contains the route files that define the API endpoints and their associated handlers.
 - "utils" folder includes utility files or helper functions.
 
-
+## Database schema
+<p align="center"> <img src="img\Untitled Diagram.drawio.png"/></p>
 
