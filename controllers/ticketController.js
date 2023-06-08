@@ -19,7 +19,7 @@ exports.createTicket = (req, res) => {
           console.error('Error creating ticket:', err);
           res.status(500).json({ error: 'Internal Server Error' });
         } else {
-          res.json({ message: 'Ticket generated successfully' });
+          res.json({ ticketId: ticketId });
         }
       });
     }
@@ -101,16 +101,17 @@ function generateTicketData(ticketCount) {
 
 // Fetch tickets controller
 exports.fetchTickets = (req, res) => {
-  const userId = req.user.id;
-  const page = req.user.page;
-  const limit = req.user.limit;
+
+  const id = req.body.userId;
+  const page = req.body.page;
+  const limit = req.body.limit;
 
   // Fetch all tickets associated with the user ID from the database
-  Ticket.fetchAll(userId, page, limit, (err, tickets) => {
+  Ticket.fetchAll(id, page, limit, (err, tickets) => {
     if (err) {
       console.error('Error fetching tickets:', err);
     } else {
-      console.log('Fetched tickets:', tickets);
+      res.status(200).json(tickets)
     }
   });
 };

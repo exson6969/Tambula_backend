@@ -25,18 +25,19 @@ exports.create = (userData,callback) => {
 };
 
 // Fetch ticket lists associated with the respective ID with pagination
-exports.fetchAll = (userId, page, limit, callback) => {
+exports.fetchAll = (id, page, limit, callback) => {
   const offset = (page - 1) * limit;
 
-  db.query('SELECT * FROM tickets WHERE user_id = ? LIMIT ?, ?', [userId, offset, limit], (err, results) => {
+  db.query('SELECT * FROM tickets WHERE id = ? LIMIT ?, ?', [id, offset, limit], (err, results) => {
     if (err) {
       callback(err, null);
     } else {
+      console.log()
       const tickets = results.map((row) => {
         return {
           id: row.id,
           ticketId: row.ticket_id,
-          ticketData: JSON.parse(row.ticket_data),
+          ticketData: row.ticket_data,
         };
       });
       callback(null, tickets);
