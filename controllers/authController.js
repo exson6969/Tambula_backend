@@ -35,7 +35,7 @@ exports.register = (req, res) => {
   });
 };
 
-// Login controller...
+// Login controller
 exports.login = (req, res) => {
     const { username, password } = req.body;
   

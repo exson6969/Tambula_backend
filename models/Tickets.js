@@ -32,11 +32,8 @@ exports.fetchAll = (id, page, limit, callback) => {
     if (err) {
       callback(err, null);
     } else {
-      console.log()
       const tickets = results.map((row) => {
         return {
-          id: row.id,
-          ticketId: row.ticket_id,
           ticketData: row.ticket_data,
         };
       });
