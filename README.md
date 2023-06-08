@@ -2,8 +2,6 @@
 The Tambula Ticket API is a Node.js and MySQL based RESTful API that allows users to create and manage Tambula tickets. Tambula is a game that involves generating unique tickets with specific number patterns. This API provides endpoints for user registration, login, ticket creation, and fetching ticket lists.
 <p align="center"><img src="https://img.freepik.com/free-photo/close-up-bingo-game-elements_23-2149181871.jpg?w=1060&t=st=1686083936~exp=1686084536~hmac=7cefbf462e4d79c3553b713a48895b5a523c0db107c21efcd11ec1ac67143ae8" height="400px"/> </p>
  
-[Custom foo description](##api-endpoints)
-
 ## Folder Structure
 📁 Tambula_backend <br>
   |<br>
@@ -122,6 +120,7 @@ Response body
 | `token`    | string   | JWT token |
 
 <img src="img\user_login.png">
+
 ### Create Ticket 
 To create a new Tambula ticket, send a POST request to the /tickets/create endpoint
 ```
