@@ -42,8 +42,9 @@ The Tambula Ticket API is a Node.js and MySQL based RESTful API that allows user
 1. Clone this project repository.
 2. Install Node.js and MySQL if not already installed.
 3. Install project dependencies using npm or yarn.
-3. Configure the database connection settings in the ..env file.
-4. Start the server and access the application.
+4. Create Database and requires tables (ref. Database schema).
+5. Configure the database connection settings in the ..env file.
+6. Start the server and access the application.
 
 ## Database schema
 
