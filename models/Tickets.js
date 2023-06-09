@@ -32,9 +32,9 @@ exports.fetchAll = (id, page, limit, callback) => {
     if (err) {
       callback(err, null);
     } else {
-      const tickets = results.map((row) => {
+      const tickets = results.map((row, index) => {
         return {
-          ticketData: row.ticket_data,
+          [`ticketData${index + 1}`]: JSON.parse(row.ticket_data),
         };
       });
       callback(null, tickets);

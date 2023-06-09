@@ -28,7 +28,6 @@ exports.createTicket = (req, res) => {
 
 // Fetch tickets controller
 exports.fetchTickets = (req, res) => {
-
   const id = req.body.userId;
   const page = req.body.page;
   const limit = req.body.limit;

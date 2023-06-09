@@ -177,6 +177,6 @@ Request headers
 Response body 
 | Field        | Type     | Description              |
 |--------------|----------|--------------------------|
-| [{`ticketData`},{`ticketData`},..]    | JSON   | All tickets sepcific user has. |
+| [{`ticketData1`},{`ticketData2`},..]    | JSON   | All tickets sepcific user has. |
 
 <img src="img\alltickets.png">
